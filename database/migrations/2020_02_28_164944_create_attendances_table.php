@@ -17,7 +17,8 @@ class CreateAttendancesTable extends Migration
             $table->bigIncrements('id');
             $table->json('response');
             $table->string('sign_id');
-            $table->string('work_code');
+            $table->string('workcode');
+            $table->string('check_name');
             $table->string('user_name');
             $table->string('dept_name');
             $table->date('sign_date');

@@ -17,3 +17,4 @@ Route::get('/', function () {
 
 Route::get('request/token', 'RequestController@token')->name('request.token');
 Route::get('request/attendance', 'RequestController@attendance')->name('request.attendance');
+Route::get('request/ticket', 'RequestController@ticket')->name('request.ticket');
