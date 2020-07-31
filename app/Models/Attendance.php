@@ -75,10 +75,10 @@ class Attendance extends Model
     protected static function createBy($pd)
     {
         //删除空白属性
-        foreach($pd as $k => $v)
-        {
-            if(!$v) unset($pd->$k);
-        }
+        // foreach($pd as $k => $v)
+        // {
+        //     if(!$v) unset($pd->$k);
+        // }
 
         $attendance = new self();
         $attendance->response = $pd;
@@ -94,12 +94,24 @@ class Attendance extends Model
 
         if($attendance->sign_in && $attendance->sign_out)
         {
-            //计算工作时长
-            $attendance->work_hour = round(Carbon::parse($attendance->sign_in)->floatDiffInHours($attendance->sign_out),2);
+            $in = Carbon::parse($attendance->sign_in);
+            $out = Carbon::parse($attendance->sign_out);
+            $ot = Carbon::parse("20:29:00");
 
-            //计算是否加班：工作时长>9H && 最后一次打卡超过20:30
-            $attendance->ot_reward = $attendance->work_hour > 9
-                    && Carbon::parse($attendance->sign_out)->gt(Carbon::parse("20:30:00"));
+            if($in->lt($out))
+            {
+                $attendance->work_hour = round($in->floatDiffInHours($out), 2);
+
+                //计算是否加班：工作时长>9H && 最后一次打卡超过20:29
+                $attendance->ot_reward = $attendance->work_hour > 9 && $out->gt($ot);
+            }
+            else //如果进卡时间晚于出卡时间，说明打卡时间跨天
+            {
+                $attendance->work_hour = 24 - round($in->floatDiffInHours($out), 2);
+
+                //计算是否加班：工作时长>9H
+                $attendance->ot_reward = $attendance->work_hour > 9;
+            }
         }
 
         return $attendance;

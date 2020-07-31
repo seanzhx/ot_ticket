@@ -9,6 +9,7 @@ use App\Models\Ticket;
 use App\DaoYiApi;
 use DB;
 
+
 class CallApi extends Command
 {
     /**
@@ -20,7 +21,7 @@ class CallApi extends Command
                             {interface : token|attend|ticket}
                             {startDate? : YYYY-MM-DD}
                             {endDate? : YYYY-MM-DD}
-                            {--S|singleStep ： Only execute signle step operation}';
+                            {--singleStep}';
 
     /**
      * The console command description.

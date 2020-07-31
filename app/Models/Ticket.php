@@ -114,24 +114,24 @@ class Ticket extends Model
         Log::debug("---Summary:new(no_id):{$debug['new']}({$debug['no_id']})---re:{$debug['repeat']}---");
 
         //保存到数据库
-        // foreach($new_tickets as $date_tickets)
-        // {
-        //     foreach($date_tickets as $ticket)
-        //     {
-        //         $ticket->save();
+        foreach($new_tickets as $date_tickets)
+        {
+            foreach($date_tickets as $ticket)
+            {
+                $ticket->save();
 
-        //         $tmds = new TicketModDataSet;
-        //         $tmds->sourceid = $ticket->id;
-        //         $tmds->save();
+                $tmds = new TicketModDataSet;
+                $tmds->sourceid = $ticket->id;
+                $tmds->save();
 
-        //         $tmd = new TicketModData;
-        //         $tmd->sourceid = $ticket->id;
-        //         $tmd->content = $ticket->user_id;
-        //         $tmd->opuser = $ticket->user_id;
-        //         $tmd->setid = $tmds->id;
-        //         $tmd->save();
-        //     }
-        // }
+                $tmd = new TicketModData;
+                $tmd->sourceid = $ticket->id;
+                $tmd->content = $ticket->user_id;
+                $tmd->opuser = $ticket->user_id;
+                $tmd->setid = $tmds->id;
+                $tmd->save();
+            }
+        }
 
         return $retData;
 
