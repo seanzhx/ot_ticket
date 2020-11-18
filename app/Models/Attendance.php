@@ -67,8 +67,7 @@ class Attendance extends Model
         //获取所有加班数据
         return Attendance::where([['ot_reward', true],
             ['sign_date', '>=', $begin_date],
-            ['sign_date', '<=', $end_date],
-            ['check_name', '金斧子考勤']])
+            ['sign_date', '<=', $end_date]])
             ->get();
     }
 

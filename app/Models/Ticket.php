@@ -12,7 +12,7 @@ class Ticket extends Model
     protected $connection = 'oracle';
 
     protected $fillable = [
-        'record_id', 'user_id', 'user_name', 'workcode', 'sign_date', 'sign_time', 'title', 'lock_status', 'give_status', 'ModeDataCreater'
+        'record_id', 'user_id', 'user_name', 'workcode', 'sign_date', 'sign_time', 'title', 'lock_status', 'give_status', 'ModeDataCreater', 'check_name'
     ];
     protected $attributes = [
         'lock_status' => false,
@@ -62,6 +62,7 @@ class Ticket extends Model
         $ticket->sign_date = $ticket->title = $a->sign_date;
         $ticket->sign_time = substr($a->sign_out,0,5);
         $ticket->ModeDataCreater = $ticket->user_id;
+        $ticket->check_name = $a->check_name;
 
         return $ticket;
     }
